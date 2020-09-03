@@ -13,16 +13,19 @@ namespace StApp.Controllers
 {
     public class HomeController : Controller
     {
-        private EFDBContext _context;
-        public HomeController(EFDBContext context)
+        //private EFDBContext _context;
+        private DataManager _dataManager;
+        public HomeController(EFDBContext context, DataManager dataManager)
         {
-            _context = context;
+            //_context = context;
+            _dataManager = dataManager;
         }
 
         public IActionResult Index()
         {
-            MyHomeModel _model = new MyHomeModel() { HelloMessage = "Hello world" };
-            List<Directory> _dirs = _context.Directory.Include(dir => dir.Materials).ToList();
+            //MyHomeModel _model = new MyHomeModel() { HelloMessage = "Hello world" };
+            //List<Directory> _dirs = _context.Directory.Include(dir => dir.Materials).ToList();
+            List<Directory> _dirs = _dataManager.Directorys.GetAllDirectorys(true).ToList();
             return View(_dirs);
         }
 

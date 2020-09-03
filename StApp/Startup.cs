@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StApp.Controllers;
+using StApp.Implementations;
+using StApp.Interfaces;
 
 namespace StApp
 {
@@ -26,6 +29,9 @@ namespace StApp
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<EFDBContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("StApp")));
+            services.AddTransient<IDirectory, EFDirectory>();
+            services.AddTransient<IMaterials, EFMaterial>();
+            services.AddScoped<DataManager>();
             services.AddControllersWithViews();
         }
 
