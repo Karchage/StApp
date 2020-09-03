@@ -20,7 +20,8 @@ namespace StApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            MyHomeModel _model = new MyHomeModel() { HelloMessage = "Hello world" };
+            return View(_model);
         }
 
         public IActionResult Privacy()
