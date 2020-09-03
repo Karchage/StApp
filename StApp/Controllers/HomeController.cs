@@ -4,24 +4,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using StApp.Entityes;
 using StApp.Models;
 
 namespace StApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private EFDBContext _context;
+        public HomeController(EFDBContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
             MyHomeModel _model = new MyHomeModel() { HelloMessage = "Hello world" };
-            return View(_model);
+            List<Directory> _dirs = _context.Directory.Include(dir => dir.Materials).ToList();
+            return View(_dirs);
         }
 
         public IActionResult Privacy()
