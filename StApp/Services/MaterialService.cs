@@ -1,4 +1,5 @@
 ﻿using StApp.Controllers;
+using StApp.Entityes;
 using StApp.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,36 @@ namespace StApp.Services
                 _mat.NextMaterial = _dir.Materials.ElementAt(_dir.Materials.IndexOf(_mat.Material) + 1);
             }
             return _mat;
+        }
+
+        public MaterialEditModel GetMaterialEditModel(int materialId)
+        {
+            var _dbModel = DataManager.Materials.GetMaterialById(materialId);
+            var _editModel = new MaterialEditModel() { 
+                Id=_dbModel.Id,
+                DirectoryId = _dbModel.DirectoryId,
+                Title = _dbModel.Title,
+                Html = _dbModel.Html,
+            };
+            return _editModel;
+        }
+
+        public MaterialViewModel SaveMaterialEditModelToDB(MaterialEditModel editModel)
+        {
+            Material material;
+            if(editModel.Id != 0)
+            {
+                material = DataManager.Materials.GetMaterialById(editModel.Id);
+            }
+            else
+            {
+                material = new Material();
+            }
+            material.Title = editModel.Title;
+            material.Html = editModel.Html;
+            material.DirectoryId = editModel.DirectoryId;
+            DataManager.Materials.SaveMaterial(material);
+            return MaterialDBModelToView(material.Id);
         }
     }
 }
