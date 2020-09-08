@@ -17,7 +17,7 @@ namespace StApp.Implementations
         {
             this.context = context;
         }
-        public void DeleteDerectory(Directory directory)
+        public void DeleteDirectory(Directory directory)
         {
             context.Directory.Remove(directory).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             context.SaveChanges();
