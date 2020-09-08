@@ -84,5 +84,10 @@ namespace StApp.Services
 
             return DirectoryDBToViewModelById(_dir.Id);
         }
+
+        public DirectoryEditModel CreateNewDirectory()
+        {
+            return new DirectoryEditModel() { };
+        }
     }
 }

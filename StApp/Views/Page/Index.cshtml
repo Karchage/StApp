@@ -13,7 +13,10 @@
         {
             foreach (var subItem in _currentModel.Materials)
             {
-                <li><a asp-action="Index" asp-controller="Page" asp-route-pageId="@subItem.Material.Id" asp-route-pageType="@StApp.Enums.PageEnums.PageType.Material">@subItem.Material.Title</a></li>
+        <li>
+            <a asp-action="Index" asp-controller="Page" asp-route-pageId="@subItem.Material.Id" asp-route-pageType="@StApp.Enums.PageEnums.PageType.Material">@subItem.Material.Title</a>
+            <a asp-action="PageEditor" asp-controller="Page" asp-route-pageId="@subItem.Material.Id" asp-route-pageType="@StApp.Enums.PageEnums.PageType.Material"> - edit</a>
+        </li>
             }
         }
     </ul>
@@ -26,7 +29,10 @@ else if (Model is MaterialViewModel)
     @if(_currentModel.NextMaterial != null)
     {
         <ul>
-            <li><a asp-action="Index" asp-controller="Page" asp-route-pageId="@_currentModel.NextMaterial.Id" asp-route-pageType="@StApp.Enums.PageEnums.PageType.Material">@_currentModel.NextMaterial.Title</a></li>
+            <li>
+                <a asp-action="Index" asp-controller="Page" asp-route-pageId="@_currentModel.NextMaterial.Id" asp-route-pageType="@StApp.Enums.PageEnums.PageType.Material">@_currentModel.NextMaterial.Title</a>
+                <a asp-action="PageEditor" asp-controller="Page" asp-route-pageId="@_currentModel.NextMaterial.Id" asp-route="@_currentModel" asp-route-pageType="@StApp.Enums.PageEnums.PageType.Material"> - edit</a>
+            </li>
         </ul>
     }
 }

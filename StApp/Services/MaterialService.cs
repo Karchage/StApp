@@ -59,5 +59,10 @@ namespace StApp.Services
             DataManager.Materials.SaveMaterial(material);
             return MaterialDBModelToView(material.Id);
         }
+
+        public MaterialEditModel CreateNewMaterial(int directoryId)
+        {
+            return new MaterialEditModel(){DirectoryId = directoryId, };
+        }
     }
 }

@@ -35,13 +35,19 @@ namespace StApp.Controllers
             return View(_viewModel);
         }
 
-        public IActionResult PageEditor(int pageId, PageType pageType)
+        public IActionResult PageEditor(int pageId, PageType pageType, int directoryId = 0)
         {
             PageEditModel _editModel;
             switch(pageType)
             {
-                case PageType.Directory: _editModel = ServicesManager.Directorys.GetDirectoryEditModel(pageId); break; 
-                case PageType.Material: _editModel = ServicesManager.Materials.GetMaterialEditModel(pageId);break;
+                case PageType.Directory:
+                    if (pageId != 0) _editModel = ServicesManager.Directorys.GetDirectoryEditModel(pageId);
+                    else _editModel = ServicesManager.Directorys.CreateNewDirectory();  
+                        break; 
+                case PageType.Material:
+                    if (pageId != 0) _editModel = ServicesManager.Materials.GetMaterialEditModel(pageId);
+                    else _editModel = ServicesManager.Materials.CreateNewMaterial(directoryId);
+                        break;
                 default: _editModel = null;break;
             }
             ViewBag.PageType = pageType;

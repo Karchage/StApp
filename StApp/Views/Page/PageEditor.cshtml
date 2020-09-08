@@ -1,0 +1,26 @@
+﻿@model PageEditModel
+@{
+    ViewData["Title"] = "PageEditor";
+}
+<form action="/Page/PageEditor" method="post">
+    @if (Model is DirectoryEditModel)
+    {
+        <h1>Edit Directory</h1>
+        var _currentmodel = (DirectoryEditModel)Model;
+        <input name="Id" type="hidden" value="@_currentmodel.Id" />
+        <input name="Title" value="@_currentmodel.Title" />
+        <textarea name="Html">@_currentmodel.Html</textarea>
+    }
+    else if (Model is MaterialEditModel)
+    {
+        <h1>Edit Material</h1>
+        var _currentmodel = (MaterialEditModel)Model;
+        <input name="Id" type="hidden" value="@_currentmodel.Id" />
+        <input name="DirectoryId" type="hidden" value="@_currentmodel.DirectoryId" />
+        <input name="Title" value="@_currentmodel.Title" />
+        <textarea name="Html">@_currentmodel.Html</textarea>
+    }
+    <input type="submit" />
+</form>
+
+
