@@ -22,10 +22,10 @@ namespace StApp.Services
             {
                 Material = DataManager.Materials.GetMaterialById(materialId),
             };
-            var _dir = DataManager.Directorys.GetDirectoryById(_mat.Material.DirectoryId);
-            if(_dir.Materials.IndexOf(_mat.Material) != _dir.Materials.Count())
+            var _dir = DataManager.Directorys.GetDirectoryById(_mat.Material.DirectoryId, true);
+            if(_dir.Materials.IndexOf(_dir.Materials.FirstOrDefault(x => x.Id == _mat.Material.Id)) != _dir.Materials.Count() - 1)
             {
-                _mat.NextMaterial = _dir.Materials.ElementAt(_dir.Materials.IndexOf(_mat.Material) + 1);
+                _mat.NextMaterial = _dir.Materials.ElementAt(_dir.Materials.IndexOf(_dir.Materials.FirstOrDefault(x => x.Id == _mat.Material.Id)) + 1);
             }
             return _mat;
         }

@@ -17,6 +17,7 @@ namespace StApp.Services
         public DirectoryService(DataManager dataManager)
         {
             DataManager = dataManager;
+            _materialService = new MaterialService(dataManager);
         }
 
         public List<DirectoryViewModel> GetDirectoriesList()
