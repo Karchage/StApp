@@ -34,7 +34,7 @@ namespace StApp.Controllers
             ViewBag.PageType = pageType;
             return View(_viewModel);
         }
-
+        [HttpGet]
         public IActionResult PageEditor(int pageId, PageType pageType, int directoryId = 0)
         {
             PageEditModel _editModel;
@@ -52,6 +52,18 @@ namespace StApp.Controllers
             }
             ViewBag.PageType = pageType;
             return View(_editModel);
+        }
+        [HttpPost]
+        public IActionResult SaveDirectory(DirectoryEditModel model)
+        {
+            ServicesManager.Directorys.SaveDirectoryEditModelToDb(model);
+            return RedirectToAction("PageEditor", "Page", new { pageId = model.Id, pageType = PageType.Directory });
+        }
+        [HttpPost]
+        public IActionResult SaveMaterial(MaterialEditModel model)
+        {
+            ServicesManager.Materials.SaveMaterialEditModelToDB(model);
+            return RedirectToAction("PageEditor", "Page", new { pageId = model.Id, pageType = PageType.Material });
         }
     }
 }
